@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <title>Dự đoán nhiệt độ</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="header">
+        <div class="container-fluid">
+            <h1 class="header__title">Nhóm mười bar</h1>
+        </div>
+    </div>
+    <div class="container mt-5">
+        <h1 class="text-center mb-4">Dự đoán nhiệt độ</h1>
+        <form action="/predict" method="post" class="border p-4 bg-light rounded">
+            <div class="form-group">
+                <label for="Max TemperatureC">Max Temperature (°C):</label>
+                <input type="text" class="form-control" name="Max TemperatureC" id="Max TemperatureC" placeholder="Nhập nhiệt độ tối đa">
+            </div>
+            <div class="form-group">
+                <label for="Min TemperatureC">Min Temperature (°C):</label>
+                <input type="text" class="form-control" name="Min TemperatureC" id="Min TemperatureC" placeholder="Nhập nhiệt độ tối thiểu">
+            </div>
+            <div class="form-group">
+                <label for="Dew PointC">Dew Point (°C):</label>
+                <input type="text" class="form-control" name="Dew PointC" id="Dew PointC" placeholder="Nhập điểm sương">
+            </div>
+            <div class="form-group">
+                <label for="Humidity">Humidity:</label>
+                <input type="text" class="form-control" name="Humidity" id="Humidity" placeholder="Nhập độ ẩm">
+            </div>
+            <div class="form-group">
+                <label for="Sea Level PressurehPa">Sea Level Pressure (hPa):</label>
+                <input type="text" class="form-control" name="Sea Level PressurehPa" id="Sea Level PressurehPa" placeholder="Nhập áp suất mực nước biển">
+            </div>
+            <div class="form-group">
+                <label for="VisibilityKm">Visibility (Km):</label>
+                <input type="text" class="form-control" name="VisibilityKm" id="VisibilityKm" placeholder="Nhập tầm nhìn">
+            </div>
+            <div class="form-group">
+                <label for="Wind SpeedKm/h">Wind Speed (Km/h):</label>
+                <input type="text" class="form-control" name="Wind SpeedKm/h" id="Wind SpeedKm/h" placeholder="Nhập tốc độ gió">
+            </div>
+            <div class="form-group">
+                <label for="Precipitationmm">Precipitation (mm):</label>
+                <input type="text" class="form-control" name="Precipitationmm" id="Precipitationmm" placeholder="Nhập lượng mưa">
+            </div>
+            <button type="submit" class="btn btn-success btn-block">Dự đoán</button>
+        </form>
+
+        {% if prediction is not none %}
+            <div class="mt-5">
+                <h2 class="text-center">Kết quả dự đoán</h2>
+                <ul class="list-group">
+                    <li class="list-group-item">Dự đoán từ Linear Model: {{ prediction }}</li>
+                    <li class="list-group-item">Dự đoán từ Lasso Model: {{ prediction2 }}</li>
+                    <li class="list-group-item">Dự đoán từ MLP Model: {{ prediction3 }}</li>
+                    <li class="list-group-item">Dự đoán từ Stacking Model: {{ prediction4 }}</li>
+                </ul>
+            </div>
+        {% endif %}
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

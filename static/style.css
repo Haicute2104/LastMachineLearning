@@ -1,0 +1,10 @@
+.header .header__title{
+    padding: 20px 30px;
+    color: plum;
+}
+body .container{
+    background: plum;
+}
+body .container h1{
+    padding-top: 20px;
+}
