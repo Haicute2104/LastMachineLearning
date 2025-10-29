@@ -51,14 +51,21 @@
             <button type="submit" class="btn btn-success btn-block">Dự đoán</button>
         </form>
 
-        {% if prediction is not none %}
+        {% if error %}
+            <div class="mt-5">
+                <div class="alert alert-danger" role="alert">
+                    <h4 class="alert-heading">Lỗi!</h4>
+                    <p>{{ error }}</p>
+                </div>
+            </div>
+        {% elif prediction is not none %}
             <div class="mt-5">
                 <h2 class="text-center">Kết quả dự đoán</h2>
                 <ul class="list-group">
-                    <li class="list-group-item">Dự đoán từ Linear Model: {{ prediction }}</li>
-                    <li class="list-group-item">Dự đoán từ Lasso Model: {{ prediction2 }}</li>
-                    <li class="list-group-item">Dự đoán từ MLP Model: {{ prediction3 }}</li>
-                    <li class="list-group-item">Dự đoán từ Stacking Model: {{ prediction4 }}</li>
+                    <li class="list-group-item">Dự đoán từ Linear Model: {{ prediction }}°C</li>
+                    <li class="list-group-item">Dự đoán từ Lasso Model: {{ prediction2 }}°C</li>
+                    <li class="list-group-item">Dự đoán từ MLP Model: {{ prediction3 }}°C</li>
+                    <li class="list-group-item">Dự đoán từ Stacking Model: {{ prediction4 }}°C</li>
                 </ul>
             </div>
         {% endif %}

@@ -4,7 +4,6 @@ from sklearn.linear_model import Lasso
 from sklearn.neural_network import MLPRegressor 
 from sklearn.ensemble import StackingRegressor
 from sklearn.metrics import mean_squared_error, mean_absolute_error, r2_score
-from sklearn.ensemble import  StackingRegressor
 from sklearn.preprocessing import StandardScaler
 import pandas as pd
 import numpy as np
@@ -30,11 +29,6 @@ missing_values_after_cleaning = data_cleaned.isnull().sum()
 data_cleaned_info = data_cleaned.info()
 
 missing_values_after_cleaning, data_cleaned_info
-
-data.columns = data.columns.str.strip()
-data_cleaned = data.drop(columns=['ICT', 'Events', 'Max Gust SpeedKm/h'])
-data_cleaned = data_cleaned.fillna(data_cleaned.mean())
-print(data_cleaned)
 
 X = data_cleaned.drop(columns=['Mean TemperatureC'])
 y = data_cleaned['Mean TemperatureC']
@@ -123,9 +117,8 @@ estimators = [
     ('lasso', Lasso(alpha=0.1)),
     ('mlp', MLPRegressor(hidden_layer_sizes=(100,), max_iter=2500,  early_stopping=True, validation_fraction=0.01, random_state=42))
 ]
-scaler = StandardScaler()
-
-X_train_scaled = scaler.fit_transform(X_train)
+# Sử dụng lại scaler đã được fit từ MLP model
+X_train_scaled = scaler.transform(X_train)
 X_test_scaled = scaler.transform(X_test)
 
 stacking_model = StackingRegressor(estimators=estimators, final_estimator=LinearRegression())
